@@ -11,7 +11,7 @@
   },
   "workspaces": [
     "packages/addon-sdk",
-    "packages/create-osu-idle-addon"
+    "packages/addon-sdk-create"
   ],
   "scripts": {
     "build": "npm -w @osu-idle/addon-sdk run build",

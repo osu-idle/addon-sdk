@@ -1,9 +1,9 @@
-# create-osu-idle-addon
+# @osu-idle/addon-sdk-create
 
 Scaffold an [osu!idle](https://github.com/osu-idle/osu-idle) add-on.
 
 ```sh
-npm create osu-idle-addon@latest my-addon
+npx @osu-idle/addon-sdk-create@latest my-addon
 ```
 
 ```

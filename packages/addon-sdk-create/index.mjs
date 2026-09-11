@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * npm create osu-idle-addon@latest my-addon
+ * npx @osu-idle/addon-sdk-create@latest my-addon
  *
  * A thin front door. The scaffolding itself lives in the SDK, so `npm create`
  * and `osu-idle-addon init` cannot drift apart - this only parses arguments and
@@ -26,7 +26,7 @@ const positional = () => {
 if (flag('help') || flag('h')) {
 	console.log(`Create an osu!idle add-on.
 
-  npm create osu-idle-addon@latest [dir]
+  npx @osu-idle/addon-sdk-create@latest [dir]
     --name "My Add-on"      display name (default: the directory name)
     --template ${TEMPLATE_NAMES.join('|')}     starting point (default: react)
     --license <spdx>        default: AGPL-3.0-only

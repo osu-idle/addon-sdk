@@ -12,8 +12,8 @@
 
 ```sh
 name=my-addon
-npm create osu-idle-addon@latest "$game"
-cd "$game" && npm install && npm run build
+npx @osu-idle/addon-sdk-create@latest "$name"
+cd "$name" && npm install && npm run build
 ```
 
 This emits one self-contained ES module. Paste it into the in-game add-on editor (Options → Add-ons → Manage) and enable it.

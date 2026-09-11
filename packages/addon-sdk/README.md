@@ -10,7 +10,7 @@
 </p>
 
 ```sh
-npm create osu-idle-addon@latest my-addon
+npx @osu-idle/addon-sdk-create@latest my-addon
 cd my-addon
 npm install
 npm run build

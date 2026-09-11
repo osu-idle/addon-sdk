@@ -1,7 +1,7 @@
 /**
  * Scaffolding a new add-on.
  *
- * Shared by `osu-idle-addon init` and by `npm create osu-idle-addon`, so both
+ * Shared by `osu-idle-addon init` and by `npx @osu-idle/addon-sdk-create`, so both
  * entry points produce exactly the same project.
  *
  * Templates are plain files with `__TOKEN__` placeholders rather than a
