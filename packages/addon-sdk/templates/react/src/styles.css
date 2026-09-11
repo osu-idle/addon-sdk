@@ -1,0 +1,61 @@
+/*
+ * Rendered inside a shadow root, so these selectors cannot reach the game and
+ * the game's stylesheet cannot reach them.
+ */
+
+:host, * { box-sizing: border-box; }
+
+.backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgb(8 6 12 / 55%);
+	pointer-events: auto;
+}
+
+.panel {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: min(720px, 92vw);
+	max-height: 80vh;
+	display: flex;
+	flex-direction: column;
+	pointer-events: auto;
+
+	font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+	font-size: 13px;
+	color: #eceaf2;
+	background: #16141c;
+	border: 1px solid #322c40;
+	border-radius: 12px;
+	box-shadow: 0 24px 80px rgb(0 0 0 / 60%);
+	overflow: hidden;
+}
+
+header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 14px 18px;
+	background: #1e1a28;
+	border-bottom: 1px solid #322c40;
+}
+
+header h1 { margin: 0; font-size: 15px; font-weight: 600; }
+header .spacer { flex: 1; }
+header .hint { color: #8b83a0; font-size: 11px; }
+
+button {
+	font: inherit;
+	color: #eceaf2;
+	background: #2b2438;
+	border: 1px solid #3d3550;
+	border-radius: 6px;
+	padding: 6px 12px;
+	cursor: pointer;
+}
+button:hover { background: #362d47; }
+
+.body { padding: 18px; overflow: auto; line-height: 1.7; }
+code { background: #221d2e; border-radius: 4px; padding: 1px 5px; }

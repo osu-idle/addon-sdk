@@ -1,0 +1,26 @@
+{
+  "name": "osu-idle-addon-sdk-repo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "osu!idle Addon SDK and its scaffolder.",
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osu-idle/addon-sdk.git"
+  },
+  "workspaces": [
+    "packages/addon-sdk",
+    "packages/create-osu-idle-addon"
+  ],
+  "scripts": {
+    "build": "npm -w @osu-idle/addon-sdk run build",
+    "dev": "npm -w @osu-idle/addon-sdk run dev",
+    "test": "node scripts/settings-test.mjs && node scripts/scaffold-test.mjs",
+    "verify": "npm run build && npm test",
+    "clean": "rm -rf packages/*/dist packages/*/tsconfig.tsbuildinfo"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}

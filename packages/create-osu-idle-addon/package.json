@@ -1,0 +1,22 @@
+{
+  "name": "create-osu-idle-addon",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "AGPL-3.0-only",
+  "description": "Scaffold an osu!idle add-on: npm create osu-idle-addon@latest my-addon",
+  "keywords": ["osu", "osu-idle", "addon", "create", "scaffold"],
+  "homepage": "https://github.com/osu-idle/addon-sdk#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osu-idle/addon-sdk.git",
+    "directory": "packages/create-osu-idle-addon"
+  },
+  "bugs": { "url": "https://github.com/osu-idle/addon-sdk/issues" },
+  "engines": { "node": ">=20" },
+  "bin": { "create-osu-idle-addon": "./index.mjs" },
+  "files": ["index.mjs", "README.md", "LICENSE"],
+  "publishConfig": { "access": "public" },
+  "dependencies": {
+    "@osu-idle/addon-sdk": "^0.1.0"
+  }
+}

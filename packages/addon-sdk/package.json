@@ -1,0 +1,85 @@
+{
+  "name": "@osu-idle/addon-sdk",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "AGPL-3.0-only",
+  "description": "osu!idle Addon SDK - build osu!idle add-ons in TypeScript. An Addon base class with automatic teardown, shadow-root React overlays, bridges to the game's database and beatmap store, and a bundler that emits the single-file ES module the add-on runtime loads.",
+  "keywords": [
+    "osu",
+    "osu-idle",
+    "addon",
+    "sdk",
+    "plugin",
+    "typescript",
+    "esbuild"
+  ],
+  "homepage": "https://github.com/osu-idle/addon-sdk#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osu-idle/addon-sdk.git",
+    "directory": "packages/addon-sdk"
+  },
+  "bugs": {
+    "url": "https://github.com/osu-idle/addon-sdk/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "default": "./dist/react/index.js"
+    },
+    "./build": {
+      "types": "./dist/build/index.d.ts",
+      "default": "./dist/build/index.js"
+    },
+    "./package.json": "./package.json",
+    "./scaffold": "./bin/scaffold.mjs"
+  },
+  "bin": {
+    "osu-idle-addon": "./bin/cli.mjs"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "templates",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "esbuild": "^0.24.0"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "typescript": "^5.6.3"
+  }
+}
