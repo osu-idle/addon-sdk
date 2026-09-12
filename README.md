@@ -39,7 +39,7 @@ The scaffolding suite generates both templates, installs them against this worki
 
 ## Releasing
 
-Pushing `master` runs the suite and publishes any workspace whose version is not on npm yet, so a release is a version bump and a push. Pushes that change no version publish nothing.
+Pushing `master` runs the suite on Node 20 and 24 - the floor `engines` declares and the current LTS - then publishes any workspace whose version is not on npm yet. So a release is a version bump and a push, and pushes that change no version publish nothing.
 
 Publishing uses npm [trusted publishing](https://docs.npmjs.com/trusted-publishers): the workflow authenticates through GitHub's OIDC token, so there is no npm token in the repository's secrets. Each package needs its publisher registered once on npmjs.com - **Settings - Trusted publishers** on the package, naming this repository and `.github/workflows/publish.yml`.
 
