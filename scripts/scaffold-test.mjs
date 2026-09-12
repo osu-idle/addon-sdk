@@ -70,9 +70,7 @@ for (const template of ['react', 'plain']) {
 	check(`${template}: exports unmount`, /\bunmount\b/.test(code));
 	check(`${template}: carries the display name`, code.includes('Test Add-on'));
 
-	// The whole point of stamping the version rather than writing it in source:
-	// the banner a reviewer reads and the version the add-on reports must be the
-	// one in package.json, with nothing to keep in sync by hand.
+	// Banner and runtime both report the package.json version.
 	const pkgVersion = JSON.parse(await readFile(join(dir, 'package.json'), 'utf8')).version;
 	check(`${template}: banner carries the package version`,
 		code.startsWith(`// Test Add-on v${pkgVersion}\n`), code.slice(0, 40));

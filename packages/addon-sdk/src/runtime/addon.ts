@@ -49,8 +49,6 @@ export abstract class Addon {
 	private mounted = false;
 
 	constructor(meta: AddonMeta) {
-		// The bundler knows the version; a subclass repeating it is how the two
-		// drift apart. See `buildMeta`.
 		this.meta = { ...meta, version: meta.version ?? buildMeta().version };
 	}
 

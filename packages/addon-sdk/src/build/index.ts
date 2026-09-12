@@ -143,8 +143,7 @@ export const bundleAddon = async (options: BundleOptions): Promise<BundleResult>
 	const base = baseOptions(gameRoot, minify, stubModules, dedupe, dedupeFrom);
 	const result = await esbuild({
 		...base,
-		// So the runtime can read what the banner says without the add-on
-		// restating it. See the SDK's `buildMeta`.
+		// Read back at runtime by `buildMeta()`.
 		define: { ...base.define, __OSU_IDLE_ADDON__: JSON.stringify(meta ?? {}) },
 		entryPoints: [entry],
 		write: false,

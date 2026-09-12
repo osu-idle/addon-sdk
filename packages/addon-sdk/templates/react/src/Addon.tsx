@@ -19,8 +19,6 @@ export class __CLASS__ extends ReactAddon {
 	private open = false;
 
 	constructor() {
-		// No version here: the bundler stamps the one in package.json, and
-		// `this.meta.version` reads it back.
 		super({ name: '__ADDON_NAME__', overlayId: '__SLUG__', styles });
 	}
 
