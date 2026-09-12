@@ -1,0 +1,56 @@
+# Publishes both workspaces to npm when master moves.
+#
+# A push that does not change a version is normal, so each package is published
+# only when its version is not on the registry yet - otherwise every push after
+# a release would fail on "cannot publish over the previously published
+# versions".
+name: publish
+
+on:
+  push:
+    branches: [master]
+
+# One publish at a time: two pushes in quick succession would otherwise race to
+# claim the same version.
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write # npm trusted publishing
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      # Trusted publishing needs a newer npm than the one bundled with Node 22.
+      - run: npm install -g npm@latest
+
+      - run: npm ci
+
+      - run: npm run verify
+
+      - name: publish
+        run: |
+          set -euo pipefail
+          # addon-sdk first: the scaffolder depends on it.
+          for dir in packages/addon-sdk packages/addon-sdk-create; do
+            name=$(node -p "require('./$dir/package.json').name")
+            version=$(node -p "require('./$dir/package.json').version")
+            if npm view "$name@$version" version >/dev/null 2>&1; then
+              echo "$name@$version is already published"
+            else
+              echo "publishing $name@$version"
+              npm publish -w "$name"
+            fi
+          done

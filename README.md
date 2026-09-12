@@ -37,9 +37,15 @@ npm run verify    # build, then the settings and scaffolding suites
 
 The scaffolding suite generates both templates, installs them against this working copy, and builds them into real add-ons, so a broken template fails here rather than in someone's first five minutes.
 
+## Releasing
+
+Pushing `master` runs the suite and publishes any workspace whose version is not on npm yet, so a release is a version bump and a push. Pushes that change no version publish nothing.
+
+Publishing uses npm [trusted publishing](https://docs.npmjs.com/trusted-publishers): the workflow authenticates through GitHub's OIDC token, so there is no npm token in the repository's secrets. Each package needs its publisher registered once on npmjs.com - **Settings - Trusted publishers** on the package, naming this repository and `.github/workflows/publish.yml`.
+
 ## A reference add-on
 
-[osu!idle sim](https://github.com/osu-idle/osu-idle-sim) is built with this SDK and exercises most of it: a worker pool, an inlined WebAssembly module, the game's own simulation bundled from source, persisted settings, and playlist writes into the client's database.
+[osu!idle sim](https://github.com/osu-idle/addon-sim) is built with this SDK and exercises most of it: a worker pool, an inlined WebAssembly module, the game's own simulation bundled from source, persisted settings, and playlist writes into the client's database.
 
 ## Licence
 
