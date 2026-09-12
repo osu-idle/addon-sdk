@@ -21,7 +21,7 @@
     "url": "https://github.com/osu-idle/addon-sdk/issues"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "bin": {
     "addon-sdk-create": "./index.mjs"
