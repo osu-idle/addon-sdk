@@ -148,7 +148,12 @@ export const bundleAddon = async (options: BundleOptions): Promise<BundleResult>
 		dedupe = [], dedupeFrom = dirname(resolve(entry)),
 	} = options;
 
-	const base = baseOptions(gameRoot, minify, stubModules, dedupe, dedupeFrom);
+	// The SDK's React modules are imported from wherever npm put the SDK, so
+	// `react` resolves from there unless it is pointed back at the add-on that
+	// installed it - and two Reacts in one bundle break hooks outright.
+	const names = [...new Set(['react', 'react-dom', ...dedupe])];
+
+	const base = baseOptions(gameRoot, minify, stubModules, names, dedupeFrom);
 	const result = await esbuild({
 		...base,
 		// Read back at runtime by `buildMeta()`.
