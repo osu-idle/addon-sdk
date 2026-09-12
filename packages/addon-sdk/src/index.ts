@@ -14,3 +14,5 @@ export {
 	type StoredVersion,
 } from './bridge/beatmaps.js';
 export { gameCharacter, type CharacterRow } from './bridge/character.js';
+export { playlists, type PlaylistRow } from './bridge/playlists.js';
+export { playCountsSince, recentPlayCounts } from './bridge/scores.js';

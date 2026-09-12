@@ -102,11 +102,15 @@ Add-ons cannot import the client's modules, so the SDK talks to what the page
 exposes:
 
 ```ts
-import { gameDb, gameCharacter, beatmapStore } from '@osu-idle/addon-sdk';
+import {
+	gameDb, gameCharacter, beatmapStore, playlists, recentPlayCounts,
+} from '@osu-idle/addon-sdk';
 
 await gameDb.ready();                            // the client opens it lazily
 const me = await gameCharacter.live();           // who is being played
 const maps = await beatmapStore.difficulties();  // downloaded charts
+const played = await recentPlayCounts(me.id);    // plays per map, last 24h
+await playlists.replace('My rotation', [101, 102]);
 ```
 
 `gameDb` wraps the sql.js handle the client publishes on `window`. Reads go
@@ -121,6 +125,17 @@ character - reading it directly is a quiet way to simulate the wrong player.
 
 `beatmapStore` opens the beatmap IndexedDB **without a version number**, on
 purpose: passing one could trigger an upgrade and take out the player's library.
+
+`playlists` reads and writes the client's own playlist tables. `replace()` keeps
+an existing playlist's id, so regenerating one does not orphan anything pointing
+at it. The client caches playlists behind a version counter it bumps itself and
+an add-on cannot reach, so **song select keeps showing the old list until it
+re-reads** - say so rather than leaving the player wondering.
+
+`playCountsSince` and `recentPlayCounts` count plays per map from the `score`
+table, in one query rather than per map. The 24h/50-play window
+`recentPlayCounts` uses is the one the server scores repetition over, so an
+add-on predicting what a play is worth has to read it the same way.
 
 ## Remembering settings
 

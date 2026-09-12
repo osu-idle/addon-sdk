@@ -1,6 +1,6 @@
 {
   "name": "@osu-idle/addon-sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "license": "AGPL-3.0-only",
   "description": "osu!idle Addon SDK - build osu!idle add-ons in TypeScript. An Addon base class with automatic teardown, shadow-root React overlays, bridges to the game's database and beatmap store, and a bundler that emits the single-file ES module the add-on runtime loads.",
