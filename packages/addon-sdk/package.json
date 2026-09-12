@@ -44,7 +44,7 @@
     "./scaffold": "./bin/scaffold.mjs"
   },
   "bin": {
-    "osu-idle-addon": "./bin/cli.mjs"
+    "osu-idle-addon": "bin/cli.mjs"
   },
   "files": [
     "dist",
