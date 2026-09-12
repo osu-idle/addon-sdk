@@ -12,6 +12,8 @@ export type BuildMeta = {
 	version?: string;
 	/** The osu!idle release the bundle was built against. */
 	gameVersion?: string;
+	/** The @osu-idle/addon-sdk that built it. */
+	sdkVersion?: string;
 	license?: string;
 };
 

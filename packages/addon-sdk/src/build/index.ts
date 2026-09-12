@@ -15,6 +15,7 @@
  */
 
 import { build as esbuild, type BuildOptions } from 'esbuild';
+import { createRequire } from 'node:module';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import {
@@ -132,6 +133,13 @@ export type BundleResult = {
 	bytes: number;
 };
 
+/**
+ * This SDK's own version, for the banner and the stamped meta - the two places
+ * a reader asks what built a bundle they are holding.
+ */
+const sdkVersion: string =
+	createRequire(import.meta.url)('@osu-idle/addon-sdk/package.json').version;
+
 /** Bundle an add-on into the single ES module the runtime loads. */
 export const bundleAddon = async (options: BundleOptions): Promise<BundleResult> => {
 	const {
@@ -144,7 +152,7 @@ export const bundleAddon = async (options: BundleOptions): Promise<BundleResult>
 	const result = await esbuild({
 		...base,
 		// Read back at runtime by `buildMeta()`.
-		define: { ...base.define, __OSU_IDLE_ADDON__: JSON.stringify(meta ?? {}) },
+		define: { ...base.define, __OSU_IDLE_ADDON__: JSON.stringify({ ...meta, sdkVersion }) },
 		entryPoints: [entry],
 		write: false,
 		sourcemap: sourcemap ? 'inline' : false,
@@ -163,7 +171,7 @@ export const bundleAddon = async (options: BundleOptions): Promise<BundleResult>
 			'// ' + [meta.name, meta.version && `v${meta.version}`].filter(Boolean).join(' '),
 			meta.gameVersion && `// built against osu!idle ${meta.gameVersion}`,
 			meta.license && `// ${meta.license}`,
-			'// Bundled with @osu-idle/addon-sdk. Paste this file into the add-on editor.',
+			`// Bundled with @osu-idle/addon-sdk v${sdkVersion}. Paste this file into the add-on editor.`,
 		].filter(Boolean).join('\n') + '\n\n'
 		: '';
 

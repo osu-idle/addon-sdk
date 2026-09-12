@@ -70,6 +70,11 @@ for (const template of ['react', 'plain']) {
 	check(`${template}: exports unmount`, /\bunmount\b/.test(code));
 	check(`${template}: carries the display name`, code.includes('Test Add-on'));
 
+	const sdkVersion = JSON.parse(
+		await readFile(join(REPO, 'packages/addon-sdk/package.json'), 'utf8')).version;
+	check(`${template}: banner names the SDK that built it`,
+		code.includes(`@osu-idle/addon-sdk v${sdkVersion}`), 'sdk version missing from banner');
+
 	// Banner and runtime both report the package.json version.
 	const pkgVersion = JSON.parse(await readFile(join(dir, 'package.json'), 'utf8')).version;
 	check(`${template}: banner carries the package version`,
