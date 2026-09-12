@@ -1,7 +1,7 @@
 {
   "name": "osu-idle-addon-sdk-repo",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "description": "osu!idle Addon SDK and its scaffolder.",
   "license": "AGPL-3.0-only",

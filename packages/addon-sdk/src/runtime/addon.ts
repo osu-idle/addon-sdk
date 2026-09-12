@@ -19,13 +19,15 @@
  *   them for you.
  */
 
+import { buildMeta } from './buildMeta.js';
+
 /** A teardown returned by a registration; running it undoes that registration. */
 export type Disposer = () => void;
 
 export type AddonMeta = {
 	/** Human name, used in log lines and error surfaces. */
 	name: string;
-	/** The add-on's own semver, mirroring the workshop listing. */
+	/** The add-on's own semver. Defaults to the version the bundler stamped in. */
 	version?: string;
 };
 
@@ -47,7 +49,9 @@ export abstract class Addon {
 	private mounted = false;
 
 	constructor(meta: AddonMeta) {
-		this.meta = meta;
+		// The bundler knows the version; a subclass repeating it is how the two
+		// drift apart. See `buildMeta`.
+		this.meta = { ...meta, version: meta.version ?? buildMeta().version };
 	}
 
 	/** Runs when the player enables the add-on (and once per boot thereafter). */

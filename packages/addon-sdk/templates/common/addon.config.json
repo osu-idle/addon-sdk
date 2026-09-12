@@ -1,6 +1,5 @@
 {
   "name": "__ADDON_NAME__",
-  "version": "0.1.0",
   "license": "__LICENSE__",
   "entry": "src/index.ts",
   "outfile": "dist/__SLUG__.js"

@@ -69,6 +69,18 @@ for (const template of ['react', 'plain']) {
 	check(`${template}: exports mount`, /\bmount\b/.test(code));
 	check(`${template}: exports unmount`, /\bunmount\b/.test(code));
 	check(`${template}: carries the display name`, code.includes('Test Add-on'));
+
+	// The whole point of stamping the version rather than writing it in source:
+	// the banner a reviewer reads and the version the add-on reports must be the
+	// one in package.json, with nothing to keep in sync by hand.
+	const pkgVersion = JSON.parse(await readFile(join(dir, 'package.json'), 'utf8')).version;
+	check(`${template}: banner carries the package version`,
+		code.startsWith(`// Test Add-on v${pkgVersion}\n`), code.slice(0, 40));
+	check(`${template}: version is stamped into the runtime`,
+		new RegExp(`version:\\s*"${pkgVersion}"`).test(code)
+		|| code.includes(`"version":"${pkgVersion}"`), 'not found in bundle');
+	check(`${template}: no version literal in source`,
+		!(await readFile(join(dir, 'addon.config.json'), 'utf8')).includes('version'));
 	if (template === 'react') {
 		check('react: React is bundled in', code.length > 100_000, `${code.length} bytes`);
 	}

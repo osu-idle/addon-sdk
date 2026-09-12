@@ -11,7 +11,7 @@ import { Addon, defineAddon, gameDb } from '@osu-idle/addon-sdk';
 class __CLASS__ extends Addon {
 
 	constructor() {
-		super({ name: '__ADDON_NAME__', version: '0.1.0' });
+		super({ name: '__ADDON_NAME__' });
 	}
 
 	protected async onMount(): Promise<void> {

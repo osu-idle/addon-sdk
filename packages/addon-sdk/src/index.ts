@@ -1,5 +1,6 @@
 export { Addon, type AddonMeta, type Disposer } from './runtime/addon.js';
 export { defineAddon, type AddonModule } from './runtime/define.js';
+export { buildMeta, type BuildMeta } from './runtime/buildMeta.js';
 export {
 	HotkeyManager,
 	isolateInput,

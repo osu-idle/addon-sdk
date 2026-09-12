@@ -90,6 +90,15 @@ if (!config.entry || !config.outfile) {
 	die(`${configPath} needs both "entry" and "outfile".`);
 }
 
+/**
+ * The add-on's version, from package.json - the one file that must carry one.
+ * Repeating it in addon.config.json is how a bundle ends up claiming a version
+ * it is not.
+ */
+const pkgVersion = await readFile(resolve(cwd, 'package.json'), 'utf8')
+	.then(raw => JSON.parse(raw).version)
+	.catch(() => undefined);
+
 const run = async () => {
 	const started = Date.now();
 	const { outfile, bytes } = await bundleAddon({
@@ -103,7 +112,7 @@ const run = async () => {
 		dedupeFrom: cwd,
 		meta: {
 			name: config.name,
-			version: config.version,
+			version: pkgVersion,
 			gameVersion: process.env.OSU_IDLE_GAME_VERSION ?? config.gameVersion,
 			license: config.license,
 		},

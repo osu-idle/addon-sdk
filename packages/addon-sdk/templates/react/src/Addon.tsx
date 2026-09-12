@@ -13,14 +13,15 @@ import Panel from './Panel.js';
 import styles from './styles.css';
 
 const TOGGLE = 'Ctrl+Shift+__KEY__';
-const VERSION = '0.1.0';
 
 export class __CLASS__ extends ReactAddon {
 
 	private open = false;
 
 	constructor() {
-		super({ name: '__ADDON_NAME__', version: VERSION, overlayId: '__SLUG__', styles });
+		// No version here: the bundler stamps the one in package.json, and
+		// `this.meta.version` reads it back.
+		super({ name: '__ADDON_NAME__', overlayId: '__SLUG__', styles });
 	}
 
 	protected override async onReady(): Promise<void> {
@@ -40,6 +41,6 @@ export class __CLASS__ extends ReactAddon {
 	}
 
 	protected render(): ReactNode {
-		return <Panel open={this.open} version={VERSION} onClose={() => this.toggle()} />;
+		return <Panel open={this.open} version={this.meta.version ?? ''} onClose={() => this.toggle()} />;
 	}
 }

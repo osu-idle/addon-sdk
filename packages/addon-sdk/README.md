@@ -167,11 +167,24 @@ osu-idle-addon build [--minify] [--watch] [--config addon.config.json]
 ```jsonc
 {
   "name": "My Add-on",
-  "version": "0.1.0",
   "entry": "src/index.ts",
   "outfile": "dist/my-addon.js"
 }
 ```
+
+**No version here.** It comes from `package.json`, and the build stamps it into
+both the banner and the bundle, so `this.meta.version` reports the version that
+was actually built:
+
+```ts
+super({ name: 'My Add-on' });   // version filled in by the bundler
+this.meta.version               // "0.1.0"
+buildMeta().gameVersion         // the osu!idle release it was built against
+```
+
+A version written in source is one nothing keeps in step with the build - it
+sits at whatever it last said while the file moves on, which is the single
+failure a version on screen exists to catch.
 
 The build fails if the output would not export `mount` - a bundle missing it
 loads without error and does nothing, which is miserable to debug from inside the
